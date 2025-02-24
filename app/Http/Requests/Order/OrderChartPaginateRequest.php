@@ -1,0 +1,29 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Http\Requests\Order;
+
+use App\Http\Requests\BaseRequest;
+use App\Models\Order;
+use Illuminate\Validation\Rule;
+
+class OrderChartPaginateRequest extends BaseRequest
+{
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [
+            'perPage'   => 'integer|min:1|max:100',
+            'export'    => 'string|in:excel',
+            'date_from' => 'required|date_format:Y-m-d',
+            'date_to'   => 'date_format:Y-m-d',
+            'column'    => 'regex:/^[a-zA-Z-_]+$/',
+            'sort'      => 'string|in:asc,desc',
+            'search'    => 'string',
+        ];
+    }
+}
